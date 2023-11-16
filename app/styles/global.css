@@ -95,7 +95,7 @@ main {
   transition-property: background-color;
   transition-duration: 300ms;
 }
-.header.navigation a:hover {
+.header .navigation a:hover {
   background-color: var(--primary);
 }
 .header .navigation a.active {

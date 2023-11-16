@@ -4,16 +4,16 @@ const Navigation = () => {
   const location = useLocation()
   return (
     <nav className='navigation'>
-      <Link to='/' className={`${location.pathname === '/' ? 'active' : ''} nav-link`}>
+      <Link to='/' className={`${location.pathname === '/' ? 'active' : ''} `}>
         Home
       </Link>
-      <Link to='/shop' className={`${location.pathname === '/shop' ? 'active' : ''} nav-link`}>
+      <Link to='/guitars' className={`${location.pathname === '/guitars' ? 'active' : ''} `}>
         Shop
       </Link>
-      <Link to='/blog' className={`${location.pathname === '/blog' ? 'active' : ''} nav-link`}>
+      <Link to='/blog' className={`${location.pathname === '/blog' ? 'active' : ''}`}>
         Blog
       </Link>
-      <Link to='/about' className={`${location.pathname === '/about' ? 'active' : ''} nav-link`}>
+      <Link to='/about' className={`${location.pathname === '/about' ? 'active' : ''} `}>
         About
       </Link>
     </nav>
