@@ -39,24 +39,7 @@
   margin: 0;
   font-weight: 900;
 }
-.guitar .link {
-  display: block;
-  margin-top: 2rem;
-  background-color: var(--black);
-  color: white;
-  text-decoration: none;
-  padding: 0.5rem;
-  text-align: center;
-  text-transform: uppercase;
-  border-radius: 5px;
-  font-size: 1.5rem;
-  font-weight: 900;
-  transition-property: background-color;
-  transition-duration: 300ms;
-}
-.guitar .link:hover {
-  background-color: var(--primary);
-}
+
 .guitar .description {
   display: -webkit-box;
   -webkit-box-orient: vertical;

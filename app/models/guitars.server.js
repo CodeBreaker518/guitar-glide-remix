@@ -7,3 +7,5 @@ export async function getGuitar(url) {
   const response = await fetch(`${process.env.API_URL}/guitars?filters[url]=${url}&populate=image`)
   return await response.json()
 }
+
+
