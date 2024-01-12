@@ -75,6 +75,7 @@ main {
 }
 .header .navigation {
   display: flex;
+  align-items: center;
   gap: 2rem;
   margin-top: 5rem;
 }
@@ -94,6 +95,10 @@ main {
   border-radius: 5px;
   transition-property: background-color;
   transition-duration: 300ms;
+}
+
+.header .navigation img {
+  width: 3rem;
 }
 .header .navigation a:hover {
   background-color: var(--primary);
@@ -135,6 +140,9 @@ main {
   text-decoration: none;
   font-weight: 700;
 }
+.footer .navigation a:last-of-type {
+  display: none;
+}
 .footer .copyright {
   text-align: center;
 }
@@ -165,6 +173,7 @@ main {
   border-radius: 5px;
   font-size: 1.5rem;
   font-weight: 700;
+  cursor: pointer;
   transition-property: background-color;
   transition-duration: 300ms;
 }

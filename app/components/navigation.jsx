@@ -1,7 +1,9 @@
 import { Link, useLocation } from '@remix-run/react'
+import shoppingCart from '../../public/img/shopping-cart.png'
 
 const Navigation = () => {
   const location = useLocation()
+  // const { cart } = useOutletContext()
   return (
     <nav className='navigation'>
       <Link to='/' className={`${location.pathname === '/' ? 'active' : ''} `}>
@@ -15,6 +17,9 @@ const Navigation = () => {
       </Link>
       <Link to='/about' className={`${location.pathname === '/about' ? 'active' : ''} `}>
         About
+      </Link>
+      <Link to='/cart' className={`${location.pathname === '/cart' ? 'active' : ''} `}>
+        <img src={shoppingCart} alt='shopping cart' />
       </Link>
     </nav>
   )

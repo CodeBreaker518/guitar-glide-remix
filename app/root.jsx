@@ -1,4 +1,15 @@
-import { Meta, Links, Outlet, Scripts, LiveReload, useRouteError, isRouteErrorResponse, Link } from '@remix-run/react'
+import { useState, useEffect } from 'react'
+import {
+  Meta,
+  Links,
+  Outlet,
+  Scripts,
+  LiveReload,
+  useRouteError,
+  isRouteErrorResponse,
+  Link,
+  useNavigate,
+} from '@remix-run/react'
 import styles from '~/styles/global.css'
 import Header from '~/components/header'
 import Footer from '~/components/footer'
@@ -37,9 +48,70 @@ export function links() {
 }
 
 export default function App() {
+  const localStorageCart = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('carrito')) ?? [] : []
+  const [cart, setCart] = useState(localStorageCart)
+  const navigate = useNavigate()
+
+  const addToCart = (guitar) => {
+    if (cart.some((guitarState) => guitarState.id === guitar.id)) {
+      // iterate over the array and identify the duplicated guitar
+      const updatedCart = cart.map((guitarState) => {
+        if (guitarState.id === guitar.id) {
+          // update the quantity
+          guitarState.quantity = guitar.quantity
+        }
+        return guitarState
+      })
+      // add to cart
+      setCart(updatedCart)
+      navigate('/cart')
+    } else {
+      // new register
+      setCart([...cart, guitar])
+      navigate('/guitars')
+    }
+  }
+
+  const updateQuantity = (guitar) => {
+    const updatedCart = cart.map((guitarState) => {
+      if (guitarState.id === guitar.id) {
+        // update the quantity
+        guitarState.quantity = guitar.quantity
+      }
+      return guitarState
+    })
+    // add to cart
+    setCart(updatedCart)
+  }
+
+  const deleteFromCart = (id) => {
+    const updatedCart = cart.filter((guitarState) => guitarState.id !== id)
+    updatedCart.length === 0 && localStorage.setItem('cart', '[]')
+    setCart(updatedCart)
+  }
+
+  // UseEffect para grabar en el LocalStorage
+  useEffect(() => {
+    if (cart?.length === 0) return
+    localStorage.setItem('cart', JSON.stringify(cart))
+  }, [cart])
+
+  // useEffect para cargar el state con info del LocalStorage
+  useEffect(() => {
+    const cartLS = JSON.parse(localStorage.getItem('cart')) ?? []
+    setCart(cartLS)
+  }, [])
+
   return (
     <Document>
-      <Outlet />
+      <Outlet
+        context={{
+          cart,
+          addToCart,
+          updateQuantity,
+          deleteFromCart,
+        }}
+      />
     </Document>
   )
 }

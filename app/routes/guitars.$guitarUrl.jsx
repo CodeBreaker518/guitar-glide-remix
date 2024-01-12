@@ -1,5 +1,6 @@
-import { useLoaderData } from '@remix-run/react'
+import { useLoaderData, useOutletContext } from '@remix-run/react'
 import { getGuitar } from '~/models/guitars.server'
+import { useState } from 'react'
 
 export async function loader({ params }) {
   const { guitarUrl } = params
@@ -28,8 +29,31 @@ export function meta({ data }) {
 }
 
 const GuitarUrl = () => {
+  const { addToCart } = useOutletContext()
+
+  const [quantity, setQuantity] = useState(0)
+
   const guitar = useLoaderData()
   const { name, description, image, price } = guitar.data[0].attributes
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    if (quantity < 1) {
+      alert('Please select a quantity')
+      return
+    }
+    const selectedGuitar = {
+      id: guitar.data[0].id,
+      name,
+      price,
+      quantity,
+      image: image.data.attributes.url,
+    }
+
+    addToCart(selectedGuitar)
+  }
+
   return (
     <div className='guitar'>
       <img src={image.data.attributes.url} alt={`guitar ${name}`} />
@@ -38,7 +62,19 @@ const GuitarUrl = () => {
         <h2 className='heading'>{name}</h2>
         <p className='description'>{description}</p>
         <p className='price'>${price}</p>
-        <button className='btn btn-primary'>Add to cart</button>
+
+        <form className='formulary' onSubmit={handleSubmit}>
+          <label htmlFor='quantity'>Quantity</label>
+          <select onChange={(e) => setQuantity(Number(e.target.value))} id='quantity'>
+            <option value='0'>-- Select --</option>
+            <option value='1'>1</option>
+            <option value='2'>2</option>
+            <option value='3'>3</option>
+            <option value='4'>4</option>
+            <option value='5'>5</option>
+          </select>
+          <input type='submit' value='Add to Cart' />
+        </form>
       </div>
     </div>
   )
